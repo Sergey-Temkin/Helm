@@ -1,0 +1,55 @@
+Home Assignment: Working with Helm
+Objective:
+The goal of this assignment is to reinforce your understanding of Helm, its components, and
+how to use it for managing Kubernetes applications by completing practical tasks and answering
+conceptual questions.
+
+Part 1: Conceptual Questions
+1. Explain Helm’s role in Kubernetes.
+○ Why is Helm preferred over managing plain Kubernetes YAML files?
+○ List and describe the key components of a Helm chart.
+2. Environment-specific Configurations:
+How does Helm handle environment-specific configurations? Provide an example.
+3. Helm Chart Repositories:
+What is a Helm chart repository, and how can it be hosted? List at least three hosting
+options.
+4. CI/CD Integration:
+How can Helm be integrated into a CI/CD pipeline? Explain the typical steps involved.
+
+---------------------------------------------------------------------------------------------
+
+Part 2: Practical Tasks
+1. Helm Installation:
+Follow the steps provided in the presentation to install Helm on your local environment.
+2. Creating a Helm Chart:
+○ Use the helm create command to generate a new chart named mychart.
+○ Review and modify the default values.yaml file to set the following:
+■ replicaCount: 2
+■ image.repository: nginx
+■ image.tag: latest
+3. Deploying a Helm Chart:
+○ Deploy the mychart Helm chart to your Kubernetes cluster using helm
+install.
+○ Verify the deployment by listing the running pods with kubectl get pods.
+4. Helm Upgrade:
+○ Update the values.yaml file to change the replicaCount to 3.
+○ Use the helm upgrade command to apply the changes to the existing
+deployment.
+○ Verify the updated deployment.
+
+---------------------------------------------------------------------------------------------
+
+Part 3: Advanced Task (Optional)
+Creating and Hosting a Helm Chart Repository:
+● Package your chart using the helm package command.
+● Create a simple Helm chart repository using GitHub Pages and follow the steps from the
+presentation to automate chart deployment with GitHub Actions.
+● Provide the link to your Helm repository.
+
+---------------------------------------------------------------------------------------------
+
+Submission Instructions:
+1. Submit a document (PDF or Word) with your answers to the conceptual questions.
+2. Include screenshots of each step completed in the practical tasks.
+3. If you choose to complete the advanced task, include the repository link and relevant
+workflow files.

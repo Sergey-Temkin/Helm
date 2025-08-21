@@ -1,0 +1,66 @@
+Part-2:
+
+1.
+minikube status
+minikube stop
+minikube delete 
+minikube start
+kubectl get pods        # (Should be empty)
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+helm version
+==============================================================================================
+2.
+helm create mychart
+sudo apt  install tree
+tree mychart -L 1
+
+# In values.yaml change(Leave all the rest as is):
+replicaCount: 2
+image.repository: nginx
+image.tag: latest
+
+helm lint mychart        #(Sanity check)
+# Should be:
+----------------------------
+==> Linting mychart
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
+----------------------------
+==============================================================================================
+3.
+helm install myrelease mychart
+kubectl get pods.
+==============================================================================================
+4.
+sed -i 's/^replicaCount:.*/replicaCount: 3/' mychart/values.yaml
+helm upgrade myrelease mychart
+kubectl get deploy,rs,po,svc -l app.kubernetes.io/instance=myrelease
+kubectl rollout status deploy/myrelease-mychart
+kubectl get deploy myrelease-mychart
+kubectl get pods -l app.kubernetes.io/instance=myrelease -o wide
+==============================================================================================
+
+Part-3:
+
+1.
+git init
+git checkout -b main
+git add mychart
+git commit -m "Add mychart Helm chart"
+git remote add origin https://github.com/Sergey-Temkin/Helm.git
+helm lint mychart
+helm package mychart
+
+2.
+helm lint mychart
+rm -rf .cr-out
+mkdir -p .cr-out
+helm package mychart -d .cr-out
+REPO_URL="https://github.com/Sergey-Temkin/Helm.git"
+helm repo index .cr-out --url "$REPO_URL"
+git checkout --orphan gh-pages
+git rm -rf .
+mv .cr-out/* .
+rmdir .cr-out
+git add .
